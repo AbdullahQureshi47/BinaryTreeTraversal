@@ -1,0 +1,97 @@
+/* Colors: #088 is a nice teal, #080 is a true green,
+	#37f is a true blue, #22a is almost indigo,
+	#a00 is deep red, #00a is deep blue, #04c is true blue
+ */
+
+BODY {
+	background-color:	#fff;
+	color:	black;
+	font-size:	medium;		/* usually medium; small for printing */
+/*	margin-left:	150px; */
+}
+
+P, TD {
+	font-size:	medium;		/* usually medium; small for printing */
+}
+
+H1	{ font-size:	xx-large }	/* usually x-large; large for printing */
+
+H2 {
+	font-size:	x-large;		/* usually x-large; large for printing */
+	font-style:	italic;		/* for printing */
+	color: 		#f00;
+}
+
+H3 {
+	font-size:	large;
+	color: 		#00a;
+}
+
+H4 {
+	font-size:	large;
+	color: 		#f00;
+}
+
+A:link		{ color: #a00; text-decoration: underline }
+A:visited, A:active	{ color: indigo; text-decoration: underline }
+
+CODE {
+	color:		#00f;
+	font-family:	monospace;
+}
+
+PRE { font-family:	serif }
+
+#siteTitle {
+	color:	#04c;
+	text-align:	center;
+}
+
+A.sTitleA:link, A.sTitleA:visited, A.sTitleA:active  {
+	color:	#04c;
+	text-decoration:	underline;
+}
+
+#pageTitle {
+	color:	#00a;
+	text-align:	center;
+}
+
+#author {
+	color:	#a00;
+	text-align:	center;
+}
+
+#navigBar {
+	color: white
+	text-align:	center;
+}
+
+#copyright {
+	margin-left:	20px;
+	margin-right:	20px;
+	font-size:	small;
+	font-style:	italic;
+}
+
+#footer {
+	font-size:	small;
+	font-style:	italic;
+}
+
+SPAN.spec {
+	color:		#009;
+}
+
+/* Following should be shared among course web sites:
+	@import "http://max.cs.kzoo.edu/styles/SharedCourseStyles";
+*/
+
+SPAN.Tall { font-size:	x-large }
+
+SPAN.SmCap { font-size:	large }
+
+/* Another way to do the above might be H1:first-letter { font: 2em },
+ * although this does not deal well with words like 1998 which should
+ * be completely tall.
+ */

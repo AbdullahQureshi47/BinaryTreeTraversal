@@ -1,0 +1,142 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Autumn Spaulding">
+   <meta name="GENERATOR" content="Mozilla/4.61 (Macintosh; I; PPC) [Netscape]">
+   <link rel="STYLESHEET" type="text/css" href="labs.css"></head>
+   <title>BinaryTreeLab.html</title>
+</head>
+<body>
+
+<h1>Binary Search Trees</h1>
+
+  <hr WIDTH="100%">
+
+<p><br>The definition of a binary search tree (BST) is similar to that of a binary tree, 
+with one important difference: 
+<p>A <b>binary search tree</b> is either: <br>
+  &nbsp;&nbsp;&nbsp; 1.&nbsp; an empty tree; or <br>
+  &nbsp;&nbsp;&nbsp; 2.&nbsp; a node, called a root, and two children, left and 
+  right, each of which is itself a binary search tree.&nbsp; Each node contains 
+  a value such that the value at the root is greater than the value in any of 
+  the nodes in the left subtree, and less than or equal to the value of any nodes 
+  in the right subtree.&nbsp; (Berman, "Data Structures via C++:Objects by Evolution", 
+  1997.) 
+<p>An example of a binary search tree appears below.
+ <center><img src="bintree.JPG"></center>
+<p>Note: the definition above is not exactly the same as the version in Collins.&nbsp; 
+  Alternative definitions for binary search trees&nbsp; handle duplicates in various 
+  ways.&nbsp; The definition above specifies that any duplicates must appear in 
+  the right subtree.&nbsp; Some definitions specify that any duplicates must appear 
+  in the left subtree (all nodes in the left subtree are less than or equal to 
+  the root and all nodes in the right subtree are greater than the root).&nbsp; 
+  Still others, like the one in our textbok, do not allow duplicates at all, specifying 
+  that all nodes in the left subtree are less than the root and all nodes in the 
+  right subtree are greater than the root.&nbsp; Thus, any BST implementation 
+  must specify how (and whether) it handles duplicates. 
+<hr WIDTH="100%">
+<h2>Mini Lab</h2> 
+  <hr WIDTH="100%">
+<h3>Inserting into a Binary Search Tree</h3>
+<p>How would you insert an element in a binary search tree?&nbsp; You know that 
+  for every tree, the values in the right subtree are all greater than or equal 
+  to the value of the root and the values in the left subtree are less than the 
+  value of the root.&nbsp; Thus, if the value to be inserted is less than the 
+  value in the root node, the new value belongs in the left subtree.&nbsp; If 
+  the value to be inserted is greater than or equal to the value in the root node, 
+  the new value belongs in the right subtree.&nbsp; This leads to a nice recursive 
+  method for inserting an element in a binary search tree.&nbsp; If the tree is 
+  empty, insert the value there.&nbsp; Otherwise, if the value is less than the 
+  current node, insert the value in the left subtree.&nbsp; Otherwise, insert 
+  the value in the right subtree. Since we need to compare values in a binary 
+  search tree, all objects inserted in a binary search tree should be <code>Comparable</code>.
+<ol>
+  <li> Create a <code>BST</code> class.&nbsp; A binary search tree is a specialized 
+    binary tree.&nbsp; Technically it is not a subtype of a binary tree, because 
+    one can add any type of object to a binary tree, whereas one should only add 
+    <code>Comparable</code> objects to a binary search tree.&nbsp;For our purposes, 
+    though, we will consider it OK to create a <code>BST</code> class as an extension 
+    of the <code>BinaryTree</code> class. <br>
+  <li> Redefine the <code>add</code> method in the <code>BST</code> class to add 
+    an element to the correct spot in the binary search tree.&nbsp; Remember that 
+    the <code>add</code> method takes an <code>Object</code> parameter.&nbsp; 
+    In order to find the correct spot, you will have to cast the <code>Object</code> 
+    parameter to a <code>Comparable</code>. &nbsp; Document the redefined method 
+    well, including the precondition that the parameter object must be <code>Comparable</code>. 
+    You will also need to cast the left and right subtrees to <code>BST</code> 
+    in order to get the right <code>add</code> method in the recursive calls.<br>
+  <li> Before testing your method, read it over carefully and develop drawings 
+    that illustrate the various steps in the algorithm.&nbsp; Recursion can be 
+    tricky, but illustrating the process can be useful.&nbsp; Then test the method. 
+    &nbsp; You&nbsp; may find the <code>Debug</code> class helpful.</ol>
+<hr WIDTH="100%">
+<h3> Deleting from a Binary Search Tree</h3>
+<p>Implement the following methods:
+<ol>
+  <li> <code>leftmost</code> -- Private method that returns the value of the left-most 
+    node in a tree. (Which extreme value in the tree does this method return?)<br>
+  <li> <code>removeLeftmost</code> -- Private method that removes the left-most 
+    node in a tree and returns the value that was in that node; returns null if 
+    the tree is empty.&nbsp; If the left-most node has a right child, this method 
+    &quot;removes&quot; the left-most node by replacing its data value and left 
+    and right subtree references with those from the root of the right child. 
+    &nbsp; (It must first save a copy of the original data value, though, so that 
+    it can return it.) At some point the root of what used to be the right subtree 
+    will be garbage-collected, since there is no longer a reference to it from 
+    the left-most node.&nbsp; Once you have this method working you can remove 
+    the <code>leftmost</code> method.<br>
+  <li> <code>remove</code> -- Takes a <code>Comparable</code> as a parameter (or 
+    an <code>Object</code> which you would then cast to <code>Comparable</code>) 
+    and removes it from the BST.&nbsp; If the node was a leaf, it becomes an empty 
+    tree by setting its data value and left and right subtree references all to 
+    null.&nbsp; If the node has a right subtree, its value should be replaced 
+    with the smallest value in the right subtree (which should be removed from 
+    the subtree). What should the method do if the node whose value is being removed 
+    is not a leaf but has an empty right subtree?&nbsp; This method returns <code>true</code> 
+    if the object was in the tree (and was removed), or <code>false</code> if 
+    the object was not in the tree. 
+</ol>
+<p>Is this an appropriate way to delete from a binary search tree?&nbsp; Does 
+  it preserve the BST properties of the tree?&nbsp; How does it preserve them, 
+  or how are they violated?</p>
+<hr WIDTH="100%">
+<h3> Other BST operations</h3>
+<p>The <code>equals</code> method must be redefined for the <code>BST</code> class.&nbsp; 
+  Identify any other <code>BinaryTree</code> methods that must be redefined.
+<ol>
+  <li> <code>equals</code> -- takes an <code>Object</code> as a parameter and 
+    returns <code>true</code> if it is a <code>BST</code> and is equal to this 
+    binary search tree; two binary search trees are equal if they contain the 
+    same nodes (and the same number of each node)&nbsp; (NOTE: whenever you redefine 
+    the <code>equals</code> method, you should also redefine the <code>hashCode</code> 
+    method; in this case, you may redefine it to throw an <code>UnsupportedMethodException</code>.)<br>
+  
+  <li>Redefine other <code>BinaryTree</code> methods in the <code>BST</code> class 
+    as necessary. <br>
+  
+  <li>Implement a static <code>isBST</code> method in the <code>BinaryTreeLab</code> 
+    class that takes a binary tree as a parameter and returns <code>true</code> 
+    if the tree is a binary search tree and <code>false</code> if it is not a 
+    binary search tree.&nbsp; Remember that an empty binary tree is a valid binary 
+    search tree. &nbsp; You may find it useful to use the <code>ExtremeValueCalculator</code> 
+    class from the <a href="BinaryTreeLab.html">Binary Tree Lab</a>. The precondition 
+    for <code>isBST</code> is that all the objects in the binary tree must be 
+    <code>Comparable</code>.
+</ol>
+<!--
+<hr WIDTH="100%">
+<h3>
+Looking Ahead</h3>
+The binary tree class in your book is somewhat different from the one that we 
+have described.&nbsp; Take a look at the definition of binary tree on page 189 
+of your textbook (Bailey, "Java Structures", 1999), then read through the interface 
+of the BinaryTree class on page 191.&nbsp; You will be discussing the differences 
+in class.
+-->
+<hr WIDTH="100%">
+<p>Authors: Autumn C. Spaulding <a href="mailto:autumn@max.cs.kzoo.edu">autumn@max.c.skzoo.edu</a> 
+  <br>
+  and Alyce Brady <a href="mailto:abrady@kzoo.edu">abrady@kzoo.edu</a>
+</body>
+</html>

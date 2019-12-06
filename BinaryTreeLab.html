@@ -1,0 +1,296 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Autumn Spaulding">
+   <meta name="GENERATOR" content="Mozilla/4.61 (Macintosh; I; PPC) [Netscape]">
+   <link rel="STYLESHEET" type="text/css" href="labs.css"></head>
+   <title>BinaryTreeLab.html</title>
+</head>
+<body>
+
+<h1>Binary  Trees</h1>
+  <hr WIDTH="100%">
+
+<p><br>A <b>binary tree</b> is either:
+<br>&nbsp;&nbsp;&nbsp; 1.&nbsp; An empty tree; or
+<br>
+  &nbsp;&nbsp;&nbsp; 2.&nbsp; a node, called a root (the node contains the data), 
+  and two children, left and right, each of which are themselves binary trees. 
+  &nbsp; (Berman, "Data Structures via C++:Objects by Evolution", 1997.) <br>
+<hr WIDTH="100%">
+<h2>Mini Lab</h2> 
+  <hr WIDTH="100%">
+
+<h3>
+Looking at the Code</h3>
+In class you will have discussed some of the methods and properties that a BinaryTree 
+class might contain.&nbsp; You should also be familiar with the concept of tree 
+traversal methods.&nbsp; Today you will implement client code to construct a tree, 
+and you will implement several traversals. 
+<ol>
+  <li> Download the <a href="Trees.zip">Trees.zip</a> file and create a project for it.
+  <br>
+  <li> 
+    <!-- You should have already designed a BinaryTree class.&nbsp;  -->
+    Look at the instance variables and constructor of the binary tree class provided 
+    to figure out how this implementation represents empty trees, leaves, and 
+    non-leaf root nodes. 
+</ol>
+Think about your constructor.&nbsp; Our definition talks about empty trees.&nbsp;
+We can create a tree that is entirely empty.&nbsp; What properties does
+an empty tree have?
+<ol>
+  <li value="3"> Look at the constructor provided.&nbsp; Does it match your expectations? 
+    <br>
+  <li> Construct an empty tree in the <code>main</code> method in the <code>BinaryTreeLab</code> 
+    class.</ol>
+
+<hr WIDTH="100%">
+<h3> Breadth-First Insertion</h3>
+
+<p>
+  What other methods are provided in the code ? 
+<ol><li> Look at the rest of the code, and determine how to add elements 
+  to a tree in breadth-first (top-down, left-to-right) order.&nbsp; What does 
+  it mean to add in breadth-first order? 
+  <br>
+  <li> Modify the <code>main</code> method to insert the values 12, 7, 3, 4, 8, 
+    25, 0, 142, 17, and 26 in your tree.&nbsp; Since the tree expects objects 
+    rather than <code>int</code> primitives, you will need to use the <code>Integer</code> 
+    class. 
+</ol>
+
+<hr WIDTH="100%">
+<h3> Visitors</h3>
+<p>Find the method in the <code>BinaryTree</code> class for doing a breadth-first 
+  traversal.&nbsp; Notice that it takes a single parameter, which is a <code>NodeVisitor</code> 
+  object.&nbsp; Actually, <code>NodeVisitor</code> is an interface that specifies 
+  a single method, the <code>visit</code> method.&nbsp; The <code>visit</code> 
+  method also takes a single parameter, which is a node in a binary tree.&nbsp; 
+  Basically, a traversal consists of stepping through all the nodes in a tree 
+  in a particular order, and calling the <code>visit</code> method of a particular 
+  <code>NodeVisitor</code> object for each node.&nbsp; This allows us to write 
+  generic traversal algorithms that can do a number of different activities.&nbsp; 
+  For example, we might have one <code>NodeVisitor</code> object that prints each 
+  node (see the <code>PrintAction</code> class), another than sums up numeric 
+  values in each node, and another than finds the minimum or maximum node value.&nbsp; 
+  Each of these tasks requires traversing the tree, but we don't need to write 
+  a separate traversal algorithm for each activity.&nbsp; Instead, we write traversal 
+  algorithms for each traversal <i>ordering</i>, and pass to each one an appropriate 
+  <code>NodeVisitor</code> object.&nbsp; The <code>NodeVisitor</code> is responsible 
+  for taking the appropriate action. </p>
+<ol>
+  <li> Test your program by printing the values in the tree in breadth-first order.&nbsp;Note 
+    which <code>NodeVisitor</code> class gets passed to the traversal algorithm 
+    to print values.&nbsp; (The code to do this is already in the <code>main</code> 
+    method, but is commented out.) <br>
+  <li> Implement a new class, similar to the <code>PrintAction</code> class, that 
+    implements the <code>NodeVisitor</code> interface. Your new class should assume 
+    that the data elements in the binary tree nodes are <code>Integer</code> objects 
+    (as they are in this case) and sum them up.&nbsp; Your class should keep track 
+    of the sum as an <code>int</code> instance variable and, in the <code>visit</code> 
+    method, should add the integer value of the data parameter to the sum, so 
+    long as the data parameter is not null.&nbsp; To do this, you will need to 
+    cast the parameter to an <code>Integer</code> and then use the <code>intValue</code> 
+    method.&nbsp; (Document the precondition that the parameter must be an <code>Integer</code>.)&nbsp; 
+    Provide an additional method that you can call from the <code>main</code> 
+    after the traversal is complete, which will return the computed sum.&nbsp; 
+    Test your new class by using it in a traversal and then asking for the sum. 
+</ol>
+
+<hr WIDTH="100%">
+<h3> Recursive Depth-First Traversals</h3>
+<p>How else might you traverse the tree?&nbsp; Remember that, in addition to the 
+breadth-first traversal algorithm, there are three ways to traverse a tree using 
+depth-first traversal algorithms. 
+<p>Because of the recursive nature of the binary tree structure (trees
+are sometimes referred to as recursive data structures), the depth-first
+traversals can be implemented with recursion.
+<p>Here is the algorithm for traversing a tree using a pre-order traversal: <br>
+  <i>&nbsp;&nbsp;&nbsp; if the tree is not empty,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; visit the root <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; recursively do a pre-order traversal 
+  of the left subtree<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; recursively do a pre-order traversal 
+  of the right subtree</i> 
+<p>Question: What is the base case for this recursive algorithm?</p>
+<ol>
+  <li> Implement the algorithm above for a pre-order traversal.&nbsp; Test your 
+    method using the <code>PrintAction</code> visitor and your new summing visitor.&nbsp; 
+    Are the results the same or different from your previous results with the 
+    breadth-first traversal?&nbsp; Are the results what you expected? <br>
+  <li> Implement a method that performs an in-order traversal. <br>
+  <li> Implement a method that performs a post-order traversal.
+</ol>
+<hr WIDTH="100%">
+<h3> Additional Methods</h3>
+<p>Implement the following methods using recursion.&nbsp; Most will follow the 
+  typical depth-first recursive algorithm, but with more explicit handling of 
+  the base case than the traversal algorithms above.&nbsp; Some may need to handle 
+  more than one base case, such as both empty trees and leaves.&nbsp; The algorithm 
+  below is an example of pre-order handling, but a different order may be appropriate 
+  for some methods.<br>
+  <i>&nbsp;&nbsp;&nbsp; if the tree is empty,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle this base case<br>
+  &nbsp;&nbsp;&nbsp; otherwise,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do something with the root <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; recursively call this method for 
+  the left subtree, possibly doing something with the return value<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; recursively call this method for 
+  the right subtree, possibly doing something with the return value</i></p>
+<ol>
+  <li> <code>isLeaf</code> -- returns <code>true</code> if the node is a leaf 
+    node; <code>false</code> otherwise <br>
+  <li> <code>numNodes</code> -- returns the number of nodes in the tree <br>
+  <li> <code>numLeaves</code> -- returns the number of leaves (nodes with no children) 
+    in the tree <br>
+  <li> <code>depth</code> -- returns the depth (or height) of the tree <br>
+  <li> <code>contains</code> -- takes an <code>Object</code> as a parameter and 
+    returns <code>true</code> if the object is in the tree; <code>false</code> 
+    otherwise <br>
+  <li> <code>numOccurrences</code> -- takes an <code>Object</code> as a parameter 
+    and returns the number of occurrences of the object in the tree<br>
+  <li> <code>equals</code> -- takes an <code>Object</code> as a parameter and 
+    returns <code>true</code> if it is a <code>BinaryTree</code> and is equal 
+    to this binary tree; two binary trees are equal if they contain the same nodes 
+    (and the same number of each node), although the order of the nodes and the 
+    shape of the trees may differ&nbsp; (NOTE: whenever you redefine the <code>equals</code> 
+    method, you should also redefine the <code>hashCode</code> method; in this 
+    case, you may redefine it to throw an <code>UnsupportedMethodException</code>.) 
+    <p>Hint: Here's an approach you might try.&nbsp; Create a recursive helper 
+      method that returns true if two trees passed to it as parameters both have 
+      the same number of occurrences of all the values in this tree.&nbsp; The 
+      recursive calls would step through the subtrees of this tree as usual, but 
+      would continue to pass the same two trees as parameters (see the example 
+      below, which looks worse than it really is).&nbsp; The structure of the 
+      recursive helper method would be very similar to your other recursive methods.&nbsp; 
+      The <code>equals</code> method, though, would simply call the helper method, 
+      passing itself and the other tree as the two parameters.</p>
+    <p>Example: Let variables <code>a</code> and <code>b</code> be binary trees 
+      (a) and (b) in Figure 8.1 on p. 279 (which we can see are equal).&nbsp; 
+      Consider the expression <code>a.equals(b)</code>.&nbsp; The <code>equals</code> 
+      method would call the recursive helper, passing it trees <code>a</code> 
+      and <code>b</code> as <i>actual parameters</i>.&nbsp; Assume that the <i>formal 
+      parameter</i> names for the two trees in the recursive helper method are 
+      <code>t1</code> and <code>t2</code>.&nbsp; (So, <code>t1</code> is tree 
+      (a) and <code>t2</code> is tree (b).)&nbsp; The recursive helper method 
+      would verify that trees <code>t1</code> and <code>t2</code> have the same 
+      number of occurrences of the root value in this tree (<i>A</i>) and the 
+      same number of occurrences of all values in the left and right subtrees 
+      of this tree.&nbsp; The recursive call to the left subtree would verify 
+      that trees <code>t1</code> and <code>t2</code> (which are still trees (a) 
+      and (b)) have the same number of occurrences of the root value in this subtree 
+      (<i>B</i>) and the same number of occurrences of all values in the left 
+      and right subtrees of this tree.&nbsp; Those subtrees are empty, so the 
+      recursive call can just return <code>true</code> when called for them.&nbsp; 
+      (Equal trees do not need to contain the same number of empty &quot;dummy&quot; 
+      subtrees.)&nbsp; Similarly, the recursive call to the right subtree of the 
+      original tree would verify that trees <code>t1</code> and <code>t2</code> 
+      have the same number of occurrences of the root value in that subtree (<i>C</i>) 
+      and the same number of occurrences of all values in the (empty) left and 
+      right subtrees of that tree.</p>
+  </li>
+</ol>
+<hr WIDTH="100%">
+<h3> Inside or Outside?</h3>
+<p>The breadth-first <code>add</code> method and <code>breadthFirstTraversal</code> 
+  method have almost the same algorithm.&nbsp; Note, though, that while the <code>add</code> 
+  method uses instance variables directly, the <code>breadthFirstTraversal</code> 
+  method makes use of accessor methods.&nbsp; </p>
+<ol><li> Could the <code>add</code> method have been implemented using 
+  method invocations rather than accessing instance variables directly?&nbsp; 
+  Could the <code>breadthFirstTraversal</code> method have been implemented using 
+  instance variables? 
+  <br><li> Could the <code>breadthFirstTraversal</code> method have been implemented 
+    outside the <code>BinaryTree</code> class as client code?&nbsp; If so, would 
+    anything about the code have to change?&nbsp; Try implementing a version of 
+    the <code>breadthFirstTraversal</code> method as a <code>static</code> method 
+    in the <code>BinaryTreeLab</code> class.&nbsp; (Why would it have to be <code>static</code>?)
+  <br><li> What are the benefits to having traversals within the class?&nbsp; 
+    What about outside the class?&nbsp; From a design standpoint, which do you 
+    think is better?&nbsp; What about implementing other methods outside the class, 
+    such as <code>numNodes</code> or <code>depth</code>?&nbsp; Justify your answers.</ol>
+<hr WIDTH="100%">
+<h3> Another Visitor</h3>
+<p>Another useful method for a binary tree would be a method that calculated the 
+  maximum or minimum value in the tree.&nbsp; We can calculate these values from 
+  outside the BinaryTree class, however, by implementing a new <code>NodeVisitor</code>.</p>
+<ol>
+  <li> Implement a new <code>NodeVisitor</code> class called <code>ExtremeValueCalculator</code> 
+    to find the extreme values (minimum and maximum) in a tree.&nbsp; The <code>ExtremeValueCalculator</code> 
+    class should have two <code>Comparable</code> instance variables, representing 
+    the largest and smallest values seen so far.&nbsp; In the <code>visit</code> 
+    method, if the <code>data</code> parameter is <code>null</code>, do nothing.&nbsp; 
+    If it is not <code>null</code>, then cast it to a <code>Comparable</code> 
+    and test it against the smallest and largest values seen so far.&nbsp; (Document 
+    the precondition that the parameter must be <code>Comparable</code>.)&nbsp; 
+    If either of the instance variables are <code>null</code>, or if the parameter 
+    is smaller than the smallest value or larger than the largest value seen so 
+    far, then set the appropriate instance variable to the parameter.&nbsp; (Could 
+    the parameter become both the smallest and the largest value seen so far?&nbsp; 
+    Be sure to handle this case.)&nbsp; Provide additional methods that you can 
+    call from the <code>main</code> after the traversal is complete, one of which 
+    will return the minimum value and one of which will return the maximum value 
+    (both <code>Comparable</code>).&nbsp; Test your new class by using it in a 
+    traversal and then asking for the minimum and maximum values.
+</ol>
+
+<hr WIDTH="100%">
+<h3> Another Depth-First Method</h3>
+
+<!--
+The equals method was more difficult than I thought, as evidenced by the 
+need for the HINT below.  An alternative would be to implement the other definition
+of equals, which demands the trees have the same shape and have the same nodes in the
+same locations.  This is actually an easier implementation.
+-->
+  
+<p>Implement the <code>equals</code> method.&nbsp; This method takes an <code>Object</code> 
+  as a parameter and returns <code>true</code> if it is a <code>BinaryTree</code> 
+  and is equal to this binary tree.&nbsp; We will define two binary trees as equal 
+  if they contain the same nodes (and the same number of each node), although 
+  the order of the nodes and the shape of the trees may differ. &nbsp;(NOTE: another 
+  definition of <code>equals</code> could insist that the two binary trees have 
+  the same nodes in the same locations in the tree.)</p>
+<p>Whenever you redefine the <code>equals</code> method, you should also redefine 
+  the <code>hashCode</code> method; in this case, you may redefine it to throw 
+  an <code>UnsupportedMethodException</code>.</p>
+<p>Hint: Here's an approach you might try.&nbsp; Create a recursive helper method 
+    that returns true if two trees passed to it as parameters both have the same 
+    number of occurrences of all the values in this tree.&nbsp; The recursive 
+    calls would step through the subtrees of this tree as usual, but would continue 
+    to pass the same two trees as parameters (see the example below, which looks 
+    worse than it really is).&nbsp; The structure of the recursive helper method 
+    would be very similar to your other recursive methods.&nbsp; The <code>equals</code> 
+    method, though, would simply call the helper method, passing itself and the 
+    other tree as the two parameters.</p>
+  <p>Example: Let variables <code>a</code> and <code>b</code> be binary trees 
+    (a) and (b) in Figure 8.1 on p. 279 (which we can see are equal).&nbsp; Consider 
+    the expression <code>a.equals(b)</code>.&nbsp; The <code>equals</code> method 
+    would call the recursive helper, passing it trees <code>a</code> and <code>b</code> 
+    as <i>actual parameters</i>.&nbsp; Assume that the <i>formal parameter</i> 
+    names for the two trees in the recursive helper method are <code>t1</code> 
+    and <code>t2</code>.&nbsp; (So, <code>t1</code> is tree (a) and <code>t2</code> 
+    is tree (b).)&nbsp; The recursive helper method would verify that trees <code>t1</code> 
+    and <code>t2</code> have the same number of occurrences of the root value 
+    in this tree (<i>A</i>) and the same number of occurrences of all values in 
+    the left and right subtrees of this tree.&nbsp; The recursive call to the 
+    left subtree would verify that trees <code>t1</code> and <code>t2</code> (which 
+    are still trees (a) and (b)) have the same number of occurrences of the root 
+    value in this subtree (<i>B</i>) and the same number of occurrences of all 
+    values in the left and right subtrees of this tree.&nbsp; Those subtrees are 
+    empty, so the recursive call can just return <code>true</code> when called 
+    for them.&nbsp; (Equal trees do not need to contain the same number of empty 
+    &quot;dummy&quot; subtrees.)&nbsp; Similarly, the recursive call to the right 
+    subtree of the original tree would verify that trees <code>t1</code> and <code>t2</code> 
+    have the same number of occurrences of the root value in that subtree (<i>C</i>) 
+    and the same number of occurrences of all values in the (empty) left and right 
+    subtrees of that tree.</p>
+<hr WIDTH="100%">
+<p>Authors: Autumn C. Spaulding <a href="mailto:autumn@max.cs.kzoo.edu">autumn@max.cs.kzoo.edu</a> 
+  <br>
+  and Alyce Brady <a href="mailto:abrady@kzoo.edu">abrady@kzoo.edu</a> <br>
+  &nbsp; 
+</body>
+</html>
